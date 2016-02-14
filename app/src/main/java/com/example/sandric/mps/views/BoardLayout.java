@@ -17,7 +17,12 @@ import com.example.sandric.mps.models.Opening;
 public class BoardLayout extends GridLayout {
 
     public Board board;
+
     private int cellWidth;
+
+    private String type;
+
+    private Boolean newGeneration;
 
     public BoardLayout (Context context) {
         super(context);
@@ -33,32 +38,38 @@ public class BoardLayout extends GridLayout {
         setMeasuredDimension(widthMeasureSpec, widthMeasureSpec);
 
         this.cellWidth = widthMeasureSpec / 8;
+
+        this.buildBoard();
     }
 
     public void generate (String type, Opening opening, BoardActivityInterface boardActivityDelegate) {
 
-        this.cellWidth = 134217816;
+        this.newGeneration = true;
+        this.board = new Board(type, opening, boardActivityDelegate);
+        this.type = type;
 
-        //if (this.board == null) {
-            this.board = new Board(type, opening, boardActivityDelegate);
+        this.buildBoard();
+    }
 
+    private void buildBoard()  {
+        if (this.cellWidth > 0 && this.newGeneration && this.board != null) {
             for (Cell cell : this.board.cells) {
                 CellView cellView = new CellView(this.getContext(), cell);
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(this.cellWidth, this.cellWidth);
                 cellView.setLayoutParams(lp);
                 this.addView(cellView);
 
-                if (type.equals("training"))
+                if (this.type.equals("training"))
                     cellView.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            BoardLayout.this.onCellClicked(((CellView)v).cell);
+                            BoardLayout.this.onCellClicked(((CellView) v).cell);
                         }
                     });
             }
 
-            //this.draw();
-        //}
+            this.newGeneration = false;
+        }
     }
 
 
