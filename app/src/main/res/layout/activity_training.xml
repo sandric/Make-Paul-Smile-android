@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/opening_name_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:paddingBottom="5dp" />
+
+    <com.example.sandric.mps.views.BoardLayout
+        android:id="@+id/board_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnCount="8"
+        android:rowCount="8"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+
+        <Button
+            android:id="@+id/end_game_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="End game"/>
+
+        <Button
+            android:id="@+id/skip_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Skip"/>
+
+        <TextView
+            android:id="@+id/openings_left_text_view"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:text="0"/>
+
+        <Button
+            android:id="@+id/hint_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hint"/>
+
+        <TextView
+            android:id="@+id/score_text_view"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:text="0"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/moves_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="16dp"/>
+
+</LinearLayout>

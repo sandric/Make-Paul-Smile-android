@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/opening_name_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:paddingBottom="5dp" />
+
+    <com.example.sandric.mps.views.BoardLayout
+        android:id="@+id/board_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnCount="8"
+        android:rowCount="8"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/restart_button"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:enabled="false"
+            android:text="Restart"/>
+
+        <Button
+            android:id="@+id/play_button"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Play"/>
+
+        <Button
+            android:id="@+id/step_button"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Step"/>
+
+        <Button
+            android:id="@+id/details_button"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Details"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/moves_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="16dp"/>
+
+</LinearLayout>
