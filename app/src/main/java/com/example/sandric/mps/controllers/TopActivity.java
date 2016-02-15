@@ -35,8 +35,6 @@ public class TopActivity extends AppCompatActivity {
 
     private ListView topListView;
 
-    //private String[] topGames = { "Tosha 1", "Tosha 2", "Tosha 3", "Tosha 4", "Tosha 5", "Tosha 6" };
-
     private ArrayList<TopGameModel> topGameModels;
 
     @Override
