@@ -81,6 +81,7 @@
 
     <TextView
         android:id="@+id/game_result_text_view"
+
         android:text="Congratulations, you improved your previous result!"
 
         android:layout_width="wrap_content"
@@ -95,36 +96,9 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:text="Previous best game group:"
+            android:id="@+id/previous_best_game_group_text_view"
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="30dip"
-            android:paddingRight="5dip"
-
-            android:textAppearance="?android:attr/textAppearanceMedium"/>
-
-
-        <TextView
-            android:id="@+id/previous_game_group_text_view"
-            android:text="Indian-defence"
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:paddingTop="30dip"
-
-            android:textAppearance="?android:attr/textAppearanceMedium"/>
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:text="Previous best game score:"
+            android:text="Best game score:"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -136,7 +110,8 @@
 
 
         <TextView
-            android:id="@+id/previous_score_group_text_view"
+            android:id="@+id/previous_best_game_score_text_view"
+
             android:text="66"
 
             android:layout_width="wrap_content"
@@ -146,5 +121,14 @@
             android:textAppearance="?android:attr/textAppearanceMedium"/>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/OK_button"
+
+        android:layout_marginTop="20dip"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+
+        android:text="OK"/>
 
 </LinearLayout>
