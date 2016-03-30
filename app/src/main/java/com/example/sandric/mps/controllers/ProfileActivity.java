@@ -1,6 +1,7 @@
 package com.example.sandric.mps.controllers;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -65,26 +66,6 @@ public class ProfileActivity extends AppCompatActivity {
         //this.getProfileFromRequest();
     }
 
-
-
-    private void saveProfile (ProfileModel profileModel) {
-
-        SharedPreferences.Editor editor = getSharedPreferences("MyPref", MODE_PRIVATE).edit();
-
-        editor.putString("name", profileModel.name);
-
-        editor.putString("bestGameGroup", profileModel.best_game.group);
-        editor.putInt("bestGameScore", profileModel.best_game.score);
-
-        for (GameModel game : profileModel.best_games_by_group) {
-            editor.putInt("best" + game.group + "GameScore", game.score);
-        }
-
-        editor.commit();
-
-        this.drawProfile();
-    }
-
     private void drawProfile () {
 
         SharedPreferences prefs = getSharedPreferences("MyPref", MODE_PRIVATE);
@@ -94,12 +75,12 @@ public class ProfileActivity extends AppCompatActivity {
         this.bestGameGroupTextView.setText(prefs.getString("bestGameGroup", ""));
         this.bestGameScoreTextView.setText("" + prefs.getInt("bestGameScore", 0));
 
-        this.bestOpenScoreTextView.setText("" + prefs.getInt("bestOpenGameScore", 0));
-        this.bestSemiOpenScoreTextView.setText("" + prefs.getInt("bestSemiOpenGameScore", 0));
-        this.bestClosedScoreTextView.setText("" + prefs.getInt("bestClosedGameScore", 0));
-        this.bestSemiClosedScoreTextView.setText("" + prefs.getInt("bestSemiClosedGameScore", 0));
-        this.bestIndianDefenceScoreTextView.setText("" + prefs.getInt("bestIndianDefenceGameScore", 0));
-        this.bestFlankScoreTextView.setText("" + prefs.getInt("bestFlankGameScore", 0));
+        this.bestOpenScoreTextView.setText("" + prefs.getInt("Open", 0));
+        this.bestSemiOpenScoreTextView.setText("" + prefs.getInt("Semi-open", 0));
+        this.bestClosedScoreTextView.setText("" + prefs.getInt("Closed", 0));
+        this.bestSemiClosedScoreTextView.setText("" + prefs.getInt("Semi-closed", 0));
+        this.bestIndianDefenceScoreTextView.setText("" + prefs.getInt("Indian-defence", 0));
+        this.bestFlankScoreTextView.setText("" + prefs.getInt("Flank", 0));
     }
 
 
@@ -127,7 +108,8 @@ public class ProfileActivity extends AppCompatActivity {
         call.enqueue(new Callback<ProfileModel>() {
             @Override
             public void onResponse(Call<ProfileModel> call, Response<ProfileModel> response) {
-                ProfileActivity.this.saveProfile(response.body());
+                ProfileActivity.this.saveProfile(response.body(), ProfileActivity.this.getApplicationContext());
+                ProfileActivity.this.drawProfile();
             }
 
             @Override
@@ -135,5 +117,22 @@ public class ProfileActivity extends AppCompatActivity {
                 Log.d("MYTAG", "NOOOOO");
             }
         });
+    }
+
+
+    protected static void saveProfile (ProfileModel profileModel, Context context) {
+
+        SharedPreferences.Editor editor = context.getSharedPreferences("MyPref", MODE_PRIVATE).edit();
+
+        editor.putString("name", profileModel.name);
+
+        editor.putString("bestGameGroup", profileModel.best_game.groupname);
+        editor.putInt("bestGameScore", profileModel.best_game.score);
+
+        for (GameModel game : profileModel.best_games) {
+            editor.putInt(game.groupname, game.score);
+        }
+
+        editor.commit();
     }
 }

@@ -60,7 +60,7 @@ public class ResultsActivity extends AppCompatActivity {
 
         SharedPreferences prefs = getSharedPreferences("MyPref", MODE_PRIVATE);
 
-        this.bestScore = prefs.getInt("best" + this.group + "GameScore", 0);
+        this.bestScore = prefs.getInt(this.group, 0);
 
 
         this.previousBestGameGroupTextView.setText("Previous best " + this.group + " result: ");
@@ -70,7 +70,7 @@ public class ResultsActivity extends AppCompatActivity {
         if (this.score > this.bestScore) {
 
             SharedPreferences.Editor editor = getSharedPreferences("MyPref", MODE_PRIVATE).edit();
-            editor.putInt("best" + this.group + "GameScore", this.score);
+            editor.putInt(this.group, this.score);
 
             editor.commit();
 

@@ -8,7 +8,7 @@ import com.google.gson.annotations.Expose;
 public class GameModel {
 
     @Expose
-    public String group;
+    public String groupname;
 
     @Expose
     public int score;

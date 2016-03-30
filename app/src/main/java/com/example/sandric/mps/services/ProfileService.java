@@ -1,5 +1,6 @@
 package com.example.sandric.mps.services;
 
+import com.example.sandric.mps.controllers.AuthorizationActivity;
 import com.example.sandric.mps.tables.ProfileModel;
 import com.example.sandric.mps.tables.TopGameModel;
 
@@ -19,9 +20,8 @@ public interface ProfileService {
     Call<ProfileModel> getProfile();
 
     @POST("api/users/")
-    Call<ProfileModel> signUp(@Body String username, @Body String password);
+    Call<ProfileModel> signUp(@Body AuthorizationActivity.UserParams userParams);
 
     @POST("api/sessions/")
-    Call<ProfileModel> signIn(@Body String username, @Body String password);
-
+    Call<ProfileModel> signIn(@Body AuthorizationActivity.UserParams userParams);
 }

@@ -12,11 +12,14 @@ public class ProfileModel
 {
 
     @Expose
+    public String id;
+
+    @Expose
     public String name;
 
     @Expose
     public GameModel best_game;
 
     @Expose
-    public List<GameModel> best_games_by_group;
+    public List<GameModel> best_games;
 }
