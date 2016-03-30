@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.sandric.mps">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-
     <application
         android:name="com.activeandroid.app.Application"
-
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-
         <meta-data
             android:name="AA_DB_NAME"
             android:value="Openings.db" />
@@ -23,60 +18,39 @@
             android:name="AA_DB_VERSION"
             android:value="5" />
 
-
         <activity android:name=".controllers.MainActivity">
+        </activity>
+        <activity
+            android:name=".controllers.OpeningGroupListActivity"
+            android:label="@string/title_activity_opening_group_list"></activity>
+        <activity
+            android:name=".controllers.OpeningListActivity"
+            android:label="@string/title_activity_opening_list"></activity>
+        <activity
+            android:name=".controllers.LearningActivity"
+            android:label="@string/title_activity_learning"></activity>
+        <activity
+            android:name=".controllers.TrainingActivity"
+            android:label="@string/title_activity_training"></activity>
+        <activity
+            android:name=".controllers.ResultsActivity"
+            android:label="@string/title_activity_results"></activity>
+        <activity
+            android:name=".controllers.OpeningDetailsActivity"
+            android:label="@string/title_activity_opening_details"></activity>
+        <activity
+            android:name=".controllers.ProfileActivity"
+            android:label="@string/title_activity_profile"></activity>
+        <activity
+            android:name=".controllers.TopActivity"
+            android:label="@string/title_activity_top"></activity>
+        <activity android:name=".controllers.AuthorizationActivity"
+            android:label="@string/title_activity_authorization">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-        <activity
-            android:name=".controllers.OpeningGroupListActivity"
-            android:label="@string/title_activity_opening_group_list">
-        </activity>
-
-        <activity
-            android:name=".controllers.OpeningListActivity"
-            android:label="@string/title_activity_opening_list">
-        </activity>
-
-
-        <activity
-            android:name=".controllers.LearningActivity"
-            android:label="@string/title_activity_learning">
-        </activity>
-
-        <activity
-            android:name=".controllers.TrainingActivity"
-            android:label="@string/title_activity_training">
-        </activity>
-
-
-
-        <activity
-            android:name=".controllers.ResultsActivity"
-            android:label="@string/title_activity_results">
-        </activity>
-
-        <activity
-            android:name=".controllers.OpeningDetailsActivity"
-            android:label="@string/title_activity_opening_details">
-        </activity>
-
-
-
-        <activity
-            android:name=".controllers.ProfileActivity"
-            android:label="@string/title_activity_profile">
-        </activity>
-
-        <activity
-            android:name=".controllers.TopActivity"
-            android:label="@string/title_activity_top">
-        </activity>
-
     </application>
 
 </manifest>

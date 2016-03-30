@@ -108,10 +108,10 @@ public class Opening implements Serializable{
                 .execute();
     }
 
-    public static List<OpeningModel> fetchOpeningsByGroup(String group) {
+    public static List<OpeningModel> fetchOpeningsByGroup(String groupname) {
         return new Select()
                 .from(OpeningModel.class)
-                .where("GroupName = ?", group)
+                .where("GroupName = ?", groupname)
                 .execute();
     }
 

@@ -55,7 +55,7 @@ public class OpeningGroupListActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(OpeningGroupListActivity.this, OpeningListActivity.class);
 
-                    intent.putExtra(OpeningListActivity.EXTRA, OpeningGroupListActivity.this.groupNames[position]);
+                    intent.putExtra(OpeningListActivity.EXTRA, groupName);
 
                     startActivity(intent);
                 }

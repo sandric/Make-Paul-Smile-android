@@ -23,7 +23,7 @@ public class OpeningModel extends Model
 
     @Expose
     @Column(name = "GroupName")
-    public String group;
+    public String groupname;
 
     @Expose
     public ArrayList<String> moves;

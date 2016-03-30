@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">Make Paul Smile</string>
+
     <string name="action_settings">Settings</string>
 
     <string name="title_activity_opening_group_list">Openings Groups</string>
+
     <string name="title_activity_opening_list">Openings</string>
 
     <string name="title_activity_learning">Learning</string>
@@ -13,5 +15,8 @@
     <string name="title_activity_results">Results</string>
 
     <string name="title_activity_profile">Profile</string>
+
     <string name="title_activity_top">Top</string>
+
+    <string name="title_activity_authorization">Authorization</string>
 </resources>

@@ -22,7 +22,7 @@ public class OpeningListActivity extends AppCompatActivity {
 
     private ListView openingsListView;
 
-    private String selectedOpeningGroup;
+    private String selectedOpeningGroupName;
 
 
     @Override
@@ -31,11 +31,11 @@ public class OpeningListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_opening_list);
 
 
-        this.selectedOpeningGroup = (String)getIntent().getSerializableExtra(OpeningListActivity.EXTRA);
+        this.selectedOpeningGroupName = (String)getIntent().getSerializableExtra(OpeningListActivity.EXTRA);
 
         this.openingsListView = (ListView) findViewById(R.id.openings_list_view);
 
-        this.openings = Opening.getOpeningsByGroupName(this.selectedOpeningGroup);
+        this.openings = Opening.getOpeningsByGroupName(this.selectedOpeningGroupName);
 
         this.openingsListView.setAdapter(new ArrayAdapter<Opening>(this, android.R.layout.simple_list_item_1, this.openings));
 
