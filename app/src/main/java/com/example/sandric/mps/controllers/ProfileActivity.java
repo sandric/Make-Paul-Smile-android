@@ -2,10 +2,13 @@ package com.example.sandric.mps.controllers;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.sandric.mps.R;
@@ -41,6 +44,8 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView bestIndianDefenceScoreTextView;
     private TextView bestFlankScoreTextView;
 
+    private Button signOutButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +63,26 @@ public class ProfileActivity extends AppCompatActivity {
         this.bestSemiClosedScoreTextView = (TextView)findViewById(R.id.best_semi_closed_score_text_view);
         this.bestIndianDefenceScoreTextView = (TextView)findViewById(R.id.best_indian_defence_score_text_view);
         this.bestFlankScoreTextView = (TextView)findViewById(R.id.best_flank_score_text_view);
+
+
+        this.signOutButton = (Button) findViewById(R.id.sign_out_button);
+        this.signOutButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+                Log.d("MYTAG", "signing out");
+
+                SharedPreferences.Editor editor = getSharedPreferences("MyPref", MODE_PRIVATE).edit();
+
+                editor.clear();
+
+                editor.commit();
+
+
+                Intent intent = new Intent(ProfileActivity.this, AuthorizationActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         this.drawProfile();
@@ -123,6 +148,10 @@ public class ProfileActivity extends AppCompatActivity {
     protected static void saveProfile (ProfileModel profileModel, Context context) {
 
         SharedPreferences.Editor editor = context.getSharedPreferences("MyPref", MODE_PRIVATE).edit();
+
+        editor.clear();
+
+        editor.putString("id", profileModel.id);
 
         editor.putString("name", profileModel.name);
 

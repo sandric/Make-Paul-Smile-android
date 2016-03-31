@@ -1,6 +1,7 @@
 package com.example.sandric.mps.controllers;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -86,6 +87,31 @@ public class AuthorizationActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onStart () {
+
+        Log.d("MYTAG", "ON START CALLED!");
+
+        super.onStart();
+
+
+        SharedPreferences prefs = getSharedPreferences("MyPref", MODE_PRIVATE);
+
+        Log.d("MYTAG", "ID::: " + prefs.getString("id", ""));
+
+        Log.d("MYTAG", "NAME::: " + prefs.getString("name", ""));
+
+
+        if (getSharedPreferences("MyPref", MODE_PRIVATE).contains("id")) {
+
+            Log.d("MYTAG", "CONTAINS");
+
+            Intent intent = new Intent(AuthorizationActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+    }
+
 
     private void onSuccess (ProfileModel profileModel) {
 
