@@ -18,8 +18,11 @@ import com.example.sandric.mps.tables.GameModel;
 import com.example.sandric.mps.tables.ProfileModel;
 import com.example.sandric.mps.tables.TopGameModel;
 import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -44,6 +47,7 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView bestIndianDefenceScoreTextView;
     private TextView bestFlankScoreTextView;
 
+    private Button updateButton;
     private Button signOutButton;
 
 
@@ -65,19 +69,22 @@ public class ProfileActivity extends AppCompatActivity {
         this.bestFlankScoreTextView = (TextView)findViewById(R.id.best_flank_score_text_view);
 
 
+        this.updateButton = (Button) findViewById(R.id.update_button);
+        this.updateButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                ProfileActivity.this.updateRequest();
+            }
+        });
+
         this.signOutButton = (Button) findViewById(R.id.sign_out_button);
         this.signOutButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
 
-                Log.d("MYTAG", "signing out");
-
                 SharedPreferences.Editor editor = getSharedPreferences("MyPref", MODE_PRIVATE).edit();
-
                 editor.clear();
-
                 editor.commit();
-
 
                 Intent intent = new Intent(ProfileActivity.this, AuthorizationActivity.class);
                 startActivity(intent);
@@ -86,9 +93,6 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         this.drawProfile();
-
-
-        //this.getProfileFromRequest();
     }
 
     private void drawProfile () {
@@ -110,7 +114,60 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
-    private void getProfileFromRequest () {
+    private void updateRequest () {
+
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+
+        SharedPreferences prefs = getSharedPreferences("MyPref", MODE_PRIVATE);
+
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .client(client)
+                .baseUrl("http://10.0.3.2:8080")
+                .addConverterFactory(GsonConverterFactory.create(
+                        new GsonBuilder()
+                                .excludeFieldsWithoutExposeAnnotation()
+                                .create()
+                ))
+                .build();
+
+        ProfileService service = retrofit.create(ProfileService.class);
+
+        ProfileParams profileParams = new ProfileParams();
+        profileParams.best_games = new ArrayList<ProfileParams.BestGameParams>();
+
+        String[] groupNames = { "Open", "Semi-open", "Closed", "Semi-closed", "Indian-defence", "Flank" };
+
+        for (String groupName : groupNames) {
+            profileParams.best_games.add(new ProfileParams.BestGameParams(groupName, prefs.getInt(groupName, 0)));
+        }
+
+        String userID = prefs.getString("id", "");
+
+        Call<Void> call = service.updateProfile(userID, profileParams);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccess()) {
+                    ProfileActivity.this.getRequest();
+                } else {
+                    try {
+                        Log.d("MYTAG", response.errorBody().string());
+                    } catch (IOException e) {}
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.d("MYTAG", "updateProfile failure");
+            }
+        });
+    }
+
+
+    private void getRequest () {
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -129,17 +186,27 @@ public class ProfileActivity extends AppCompatActivity {
 
         ProfileService service = retrofit.create(ProfileService.class);
 
-        Call<ProfileModel> call = service.getProfile();
+        SharedPreferences prefs = getSharedPreferences("MyPref", MODE_PRIVATE);
+        String userID = prefs.getString("id", "");
+
+        Call<ProfileModel> call = service.getProfile(userID);
         call.enqueue(new Callback<ProfileModel>() {
             @Override
             public void onResponse(Call<ProfileModel> call, Response<ProfileModel> response) {
-                ProfileActivity.this.saveProfile(response.body(), ProfileActivity.this.getApplicationContext());
-                ProfileActivity.this.drawProfile();
+                if (response.isSuccess()) {
+                    ProfileActivity.this.saveProfile(response.body(), ProfileActivity.this.getApplicationContext());
+                    ProfileActivity.this.drawProfile();
+                } else {
+                    try {
+                        Log.d("MYTAG", "getProfile error");
+                        Log.d("MYTAG", response.errorBody().string());
+                    } catch (IOException e) {}
+                }
             }
 
             @Override
             public void onFailure(Call<ProfileModel> call, Throwable t) {
-                Log.d("MYTAG", "NOOOOO");
+                Log.d("MYTAG", "getProfile failure");
             }
         });
     }
@@ -163,5 +230,29 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
         editor.commit();
+    }
+
+
+
+
+    public static class ProfileParams {
+
+        @Expose
+        public List<BestGameParams> best_games;
+
+
+        private static class BestGameParams {
+
+            @Expose
+            public String groupname;
+
+            @Expose
+            public int score;
+
+            public BestGameParams(String groupname, int score) {
+                this.groupname = groupname;
+                this.score = score;
+            }
+        }
     }
 }

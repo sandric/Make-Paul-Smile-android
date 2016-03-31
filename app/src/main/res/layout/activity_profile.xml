@@ -284,13 +284,31 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/sign_out_button"
-
-        android:layout_marginTop="30dip"
-        android:layout_height="wrap_content"
+    <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dip">
 
-        android:text="Sign Out"/>
+        <Button
+            android:id="@+id/update_button"
+
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+
+            android:layout_weight="1"
+
+            android:text="Update"/>
+
+        <Button
+            android:id="@+id/sign_out_button"
+
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+
+            android:layout_weight="1"
+
+            android:text="Sign Out"/>
+
+    </LinearLayout>
 
 </LinearLayout>

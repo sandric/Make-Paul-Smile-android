@@ -53,10 +53,6 @@ public class AuthorizationActivity extends AppCompatActivity {
         this.signInButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
-                Log.d("MYTAG", "signing in username: " + AuthorizationActivity.this.usernameEditText.getText() +
-                        "password: " + AuthorizationActivity.this.passwordEditText.getText());
-
                 if (AuthorizationActivity.this.usernameEditText.getText().length() == 0) {
                     AuthorizationActivity.this.onError("Username cannot be empty.");
                 } else if (AuthorizationActivity.this.passwordEditText.getText().length() == 0) {
@@ -72,10 +68,6 @@ public class AuthorizationActivity extends AppCompatActivity {
         this.signUpButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
-                Log.d("MYTAG", "signing up username: " + AuthorizationActivity.this.usernameEditText.getText() +
-                        "password: " + AuthorizationActivity.this.passwordEditText.getText());
-
                 if (AuthorizationActivity.this.usernameEditText.getText().length() == 0) {
                     AuthorizationActivity.this.onError("Username cannot be empty.");
                 } else if (AuthorizationActivity.this.passwordEditText.getText().length() == 0) {
@@ -90,23 +82,11 @@ public class AuthorizationActivity extends AppCompatActivity {
 
     @Override
     protected void onStart () {
-
-        Log.d("MYTAG", "ON START CALLED!");
-
         super.onStart();
-
 
         SharedPreferences prefs = getSharedPreferences("MyPref", MODE_PRIVATE);
 
-        Log.d("MYTAG", "ID::: " + prefs.getString("id", ""));
-
-        Log.d("MYTAG", "NAME::: " + prefs.getString("name", ""));
-
-
         if (getSharedPreferences("MyPref", MODE_PRIVATE).contains("id")) {
-
-            Log.d("MYTAG", "CONTAINS");
-
             Intent intent = new Intent(AuthorizationActivity.this, MainActivity.class);
             startActivity(intent);
         }
@@ -152,8 +132,6 @@ public class AuthorizationActivity extends AppCompatActivity {
         call.enqueue(new Callback<ProfileModel>() {
             @Override
             public void onResponse(Call<ProfileModel> call, Response<ProfileModel> response) {
-                Log.d("MYTAG", "YESSSS");
-
                 if (response.isSuccess()) {
                     AuthorizationActivity.this.onSuccess(response.body());
                 } else {
@@ -165,8 +143,6 @@ public class AuthorizationActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ProfileModel> call, Throwable t) {
-                Log.d("MYTAG", "NOOOOO");
-
                 AuthorizationActivity.this.onError("ERROR");
             }
         });
@@ -197,8 +173,6 @@ public class AuthorizationActivity extends AppCompatActivity {
         call.enqueue(new Callback<ProfileModel>() {
             @Override
             public void onResponse(Call<ProfileModel> call, Response<ProfileModel> response) {
-                Log.d("MYTAG", "YESSSS");
-
                 if (response.isSuccess()) {
                     AuthorizationActivity.this.onSuccess(response.body());
                 } else {
@@ -210,8 +184,6 @@ public class AuthorizationActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ProfileModel> call, Throwable t) {
-                Log.d("MYTAG", "NOOOOO");
-
                 AuthorizationActivity.this.onError("ERROR");
             }
         });
